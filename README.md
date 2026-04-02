@@ -1,15 +1,18 @@
 # 💫 About Me:
-🛠 ## About Me
 
-I'm a Full-Stack Engineer and ECE final-year student (BEU Patna, 2026) who builds across the full stack — from React frontends and Spring Boot APIs to NRF24L01 wireless links and TensorFlow Lite inference on edge hardware.
+## About Me
 
-My capstone project is a 25-DOF hexapod robot with a mounted robotic arm — wireless-controlled via NRF24L01 PA/LNA, powered by a 3S LiPo, and built on an Arduino Mega with a Raspberry Pi AI layer over UART. Every component debugged from scratch: struct packing for radio checksum errors, power rail brownout from servo current spikes, PA level tuning for close-range modules.
+I'm a Full-Stack Software Engineer and ECE final-year student at BEU Patna (2026) who writes production code across the entire stack — from React + TypeScript frontends to Spring Boot APIs, PostgreSQL schemas, and Firebase-backed mobile apps.
 
-That's the lens I bring to software too — I think in systems, not just features.
+3× internships. 450+ LeetCode problems. Real shipped code.
 
-On the web side: 2× internships (Infosys Springboard, CertifyO), 400+ LeetCode problems, and production experience with React, TypeScript, Redux Toolkit, Spring Boot, PostgreSQL, and Firebase.
+At Infosys Springboard, I built and delivered Java full-stack modules end-to-end. At CertifyO, I shipped features in a live Next.js platform used by real users. I don't just write code that compiles — I write code that ships.
 
-I'm looking for **SDE / Full-Stack / AI-ML** roles as a 2026 fresher — somewhere I can ship fast, go deep, and own real problems.
+My edge: I also build hardware. My capstone is a 25-DOF hexapod robot with wireless control, which means I debug systems where a bad pointer causes a physical machine to crash. That instinct for root-cause thinking carries directly into how I write and review software.
+
+**Looking for:** SDE / Full-Stack roles (2026 fresher) at companies that value clean architecture, fast iteration, and engineers who own problems end to end.
+
+**Stack:** React · TypeScript · Spring Boot · Node.js · PostgreSQL · MongoDB · Redux · Firebase · AWS
 
 
 
