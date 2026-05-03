@@ -4,7 +4,7 @@
 
 I'm a Full-Stack Software Engineer and ECE final-year student at BEU Patna (2026) who writes production code across the entire stack — from React + TypeScript frontends to Spring Boot APIs, PostgreSQL schemas, and Firebase-backed mobile apps.
 
-3× internships. 450+ LeetCode problems. Real shipped code.
+5× internships. 500+ LeetCode problems. Real shipped code.
 
 At Infosys Springboard, I built and delivered Java full-stack modules end-to-end. At CertifyO, I shipped features in a live Next.js platform used by real users. I don't just write code that compiles — I write code that ships.
 
