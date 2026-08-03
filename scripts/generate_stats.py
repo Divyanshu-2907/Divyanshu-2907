@@ -1,6 +1,6 @@
 """
 Self-hosted GitHub stats card generator.
-Fetches real stats via the GitHub API and renders a static SVG —
+Fetches real stats via the GitHub API and renders static SVGs —
 no dependency on any third-party Vercel instance.
 
 Run in CI (GitHub Actions) with GITHUB_TOKEN provided automatically,
@@ -19,6 +19,13 @@ if TOKEN:
     HEADERS["Authorization"] = f"Bearer {TOKEN}"
 
 API = "https://api.github.com"
+
+# Theme Colors
+BG = "#0d1117"
+BORDER = "#30363d"
+GREEN = "#39d353"
+TEXT = "#8b949e"
+TITLE = "#c9d1d9"
 
 
 def get_json(url):
@@ -149,7 +156,6 @@ def fetch_stats():
     return {
         "public_repos": user.get("public_repos", 0),
         "followers": user.get("followers", 0),
-        "following": user.get("following", 0),
         "total_stars": total_stars,
         "total_forks": total_forks,
         "top_langs": top_langs,
@@ -162,42 +168,54 @@ def fetch_stats():
         "activity": activity,
     }
 
+def base_svg(title, content, height):
+    return f"""<svg width="400" height="{height}" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" rx="10" fill="{BG}" stroke="{BORDER}"/>
+  <text x="20" y="30" fill="{GREEN}" font-size="16" font-weight="bold" font-family="Segoe UI, sans-serif">{title}</text>
+  {content}
+</svg>"""
 
-def render_svg(stats):
-    y = 135
-    
-    stats_text = f"""
-  <text x="20" y="30" fill="#39d353" font-size="16" font-weight="bold" font-family="Segoe UI, sans-serif">{stats['public_repos']} public repos &#183; {stats['followers']} followers</text>
-  <text x="20" y="55" fill="#8b949e" font-size="13" font-family="Segoe UI, sans-serif">&#9733; {stats['total_stars']} stars earned &#183; {stats['total_forks']} forks</text>
-  <text x="20" y="75" fill="#8b949e" font-size="13" font-family="Segoe UI, sans-serif">&#128187; {stats['total_commits_1y']} commits (last 12m) &#183; {stats['streak']} day streak</text>
-  <text x="20" y="95" fill="#8b949e" font-size="13" font-family="Segoe UI, sans-serif">&#127775; Featured: {stats['featured_repo_name']} ({stats['featured_repo_stars']} stars)</text>
-  <text x="20" y="115" fill="#8b949e" font-size="13" font-family="Segoe UI, sans-serif">&#127758; {stats['os_prs_merged']} OS PRs merged &#183; {stats['account_age_years']} years on GitHub</text>
-  <line x1="20" y1="{y}" x2="400" y2="{y}" stroke="#30363d"/>
+def render_overview(stats):
+    content = f"""
+  <text x="20" y="60" fill="{TEXT}" font-size="14" font-family="Segoe UI, sans-serif">&#128187; {stats['public_repos']} public repos</text>
+  <text x="20" y="85" fill="{TEXT}" font-size="14" font-family="Segoe UI, sans-serif">&#128101; {stats['followers']} followers</text>
+  <text x="20" y="110" fill="{TEXT}" font-size="14" font-family="Segoe UI, sans-serif">&#9733; {stats['total_stars']} stars earned</text>
+  <text x="20" y="135" fill="{TEXT}" font-size="14" font-family="Segoe UI, sans-serif">&#127758; {stats['os_prs_merged']} OS PRs merged</text>
+  <text x="20" y="160" fill="{TEXT}" font-size="14" font-family="Segoe UI, sans-serif">&#8986; {stats['account_age_years']} years on GitHub</text>
 """
-    y += 25
-    lang_rows = f'<text x="20" y="{y}" fill="#c9d1d9" font-size="13" font-weight="bold" font-family="Segoe UI, sans-serif">Top Languages</text>'
-    y += 25
-    
+    return base_svg("Overview", content, 185)
+
+def render_streak(stats):
+    content = f"""
+  <text x="20" y="60" fill="{TEXT}" font-size="14" font-family="Segoe UI, sans-serif">&#128293; Current Streak: <tspan fill="{TITLE}" font-weight="bold">{stats['streak']} days</tspan></text>
+  <text x="20" y="85" fill="{TEXT}" font-size="14" font-family="Segoe UI, sans-serif">&#128221; Total Commits (1yr): <tspan fill="{TITLE}" font-weight="bold">{stats['total_commits_1y']}</tspan></text>
+  <text x="20" y="125" fill="{GREEN}" font-size="13" font-weight="bold" font-family="Segoe UI, sans-serif">Featured Repository</text>
+  <text x="20" y="150" fill="{TEXT}" font-size="14" font-family="Segoe UI, sans-serif">&#127775; {stats['featured_repo_name']} ({stats['featured_repo_stars']} stars)</text>
+"""
+    return base_svg("Contributions", content, 185)
+
+def render_languages(stats):
+    content = ""
+    y = 60
     max_count = max((c for _, c in stats["top_langs"]), default=1)
     for lang, count in stats["top_langs"]:
-        bar_width = int(200 * (count / max_count))
-        lang_rows += f"""
-        <text x="20" y="{y}" fill="#c9d1d9" font-size="13" font-family="Segoe UI, sans-serif">{lang}</text>
-        <rect x="120" y="{y - 12}" width="{bar_width}" height="10" rx="5" fill="#26a641"/>
-        """
-        y += 26
+        bar_width = int(220 * (count / max_count))
+        content += f"""
+  <text x="20" y="{y}" fill="{TITLE}" font-size="13" font-family="Segoe UI, sans-serif">{lang}</text>
+  <rect x="130" y="{y - 12}" width="{bar_width}" height="10" rx="5" fill="#26a641"/>
+"""
+        y += 28
+    return base_svg("Top Languages", content, y + 10)
 
-    y += 10
-    activity_html = f'<text x="20" y="{y}" fill="#c9d1d9" font-size="13" font-weight="bold" font-family="Segoe UI, sans-serif">Activity (Last 14 days)</text>'
-    y += 15
-    
+def render_activity(stats):
+    content = ""
     activity = stats.get("activity", [0]*14)
     max_act = max(activity) if max(activity) > 0 else 1
     
     x_offset = 20
     for count in activity:
-        height = max(4, int((count / max_act) * 30))
-        y_pos = y + 30 - height
+        height = max(4, int((count / max_act) * 80))
+        y_pos = 140 - height
         
         if count == 0:
             color = "#161b22"
@@ -210,25 +228,27 @@ def render_svg(stats):
         else:
             color = "#39d353"
             
-        activity_html += f'\n  <rect x="{x_offset}" y="{y_pos}" width="16" height="{height}" rx="3" fill="{color}"/>'
-        x_offset += 20
-        
-    y += 45
-
-    svg = f"""<svg width="420" height="{y}" xmlns="http://www.w3.org/2000/svg">
-  <rect width="100%" height="100%" rx="10" fill="#0d1117" stroke="#30363d"/>
-  {stats_text}
-  {lang_rows}
-  {activity_html}
-</svg>"""
-    return svg
-
+        content += f'\n  <rect x="{x_offset}" y="{y_pos}" width="20" height="{height}" rx="3" fill="{color}"/>'
+        x_offset += 26
+    
+    content += f'\n  <text x="20" y="165" fill="{TEXT}" font-size="12" font-family="Segoe UI, sans-serif">Commit activity over the last 14 days</text>'
+    return base_svg("Recent Activity", content, 185)
 
 if __name__ == "__main__":
     stats = fetch_stats()
-    svg = render_svg(stats)
+    
     os.makedirs("assets", exist_ok=True)
-    with open("assets/stats-card.svg", "w", encoding="utf-8") as f:
-        f.write(svg)
-    print("Wrote assets/stats-card.svg")
+    
+    files = {
+        "assets/overview.svg": render_overview(stats),
+        "assets/streak.svg": render_streak(stats),
+        "assets/languages.svg": render_languages(stats),
+        "assets/activity.svg": render_activity(stats),
+    }
+    
+    for filename, content in files.items():
+        with open(filename, "w", encoding="utf-8") as f:
+            f.write(content)
+        print(f"Wrote {filename}")
+    
     print(stats)

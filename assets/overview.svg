@@ -1,0 +1,11 @@
+<svg width="400" height="185" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" rx="10" fill="#0d1117" stroke="#30363d"/>
+  <text x="20" y="30" fill="#39d353" font-size="16" font-weight="bold" font-family="Segoe UI, sans-serif">Overview</text>
+  
+  <text x="20" y="60" fill="#8b949e" font-size="14" font-family="Segoe UI, sans-serif">&#128187; 40 public repos</text>
+  <text x="20" y="85" fill="#8b949e" font-size="14" font-family="Segoe UI, sans-serif">&#128101; 3 followers</text>
+  <text x="20" y="110" fill="#8b949e" font-size="14" font-family="Segoe UI, sans-serif">&#9733; 58 stars earned</text>
+  <text x="20" y="135" fill="#8b949e" font-size="14" font-family="Segoe UI, sans-serif">&#127758; 0 OS PRs merged</text>
+  <text x="20" y="160" fill="#8b949e" font-size="14" font-family="Segoe UI, sans-serif">&#8986; 3 years on GitHub</text>
+
+</svg>

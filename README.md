@@ -41,7 +41,12 @@ My other edge is hardware. My capstone is a 25-DOF hexapod robot with wireless c
 ## 📊 GitHub Stats
 
 <p align="center">
-  <img src="./assets/stats-card.svg" alt="GitHub stats" />
+  <img src="./assets/overview.svg" alt="Overview Stats" width="49%" />
+  <img src="./assets/streak.svg" alt="Streak Stats" width="49%" />
+</p>
+<p align="center">
+  <img src="./assets/languages.svg" alt="Top Languages" width="49%" />
+  <img src="./assets/activity.svg" alt="Recent Activity" width="49%" />
 </p>
 
 <sub>Self-hosted and auto-updated daily via GitHub Actions — see <code>.github/workflows/update-stats.yml</code></sub>
