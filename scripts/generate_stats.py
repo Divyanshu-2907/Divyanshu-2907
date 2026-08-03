@@ -27,10 +27,14 @@ def get_json(url):
     return r.json()
 
 
-def get_streak():
+def get_streak_and_activity():
     page = 1
     today = datetime.now(timezone.utc).date()
     commit_dates = set()
+    commit_counts_per_day = {}
+    
+    streak_found = False
+    temp_streak = 0
     
     while page <= 10:
         url = f"{API}/search/commits?q=author:{USERNAME}&sort=author-date&order=desc&per_page=100&page={page}"
@@ -48,31 +52,59 @@ def get_streak():
             d = datetime.fromisoformat(date_str.replace("Z", "+00:00")).astimezone(timezone.utc).date()
             commit_dates.add(d)
             batch_dates.append(d)
+            commit_counts_per_day[d] = commit_counts_per_day.get(d, 0) + 1
             
         oldest_in_batch = min(batch_dates)
         
-        current = today
-        temp_streak = 0
-        if current in commit_dates:
-            temp_streak += 1
-            current -= timedelta(days=1)
-        elif (current - timedelta(days=1)) in commit_dates:
-            current -= timedelta(days=1)
-            temp_streak += 1
-            current -= timedelta(days=1)
-            
-        while current in commit_dates:
-            temp_streak += 1
-            current -= timedelta(days=1)
-            
-        if current >= oldest_in_batch:
-            return temp_streak
+        if not streak_found:
+            current = today
+            t_streak = 0
+            if current in commit_dates:
+                t_streak += 1
+                current -= timedelta(days=1)
+            elif (current - timedelta(days=1)) in commit_dates:
+                current -= timedelta(days=1)
+                t_streak += 1
+                current -= timedelta(days=1)
+                
+            while current in commit_dates:
+                t_streak += 1
+                current -= timedelta(days=1)
+                
+            if current >= oldest_in_batch:
+                temp_streak = t_streak
+                streak_found = True
+
+        fourteen_days_ago = today - timedelta(days=14)
+        if streak_found and oldest_in_batch <= fourteen_days_ago:
+            break
             
         if len(items) < 100:
             break
         page += 1
         
-    return temp_streak
+    if not streak_found:
+        current = today
+        t_streak = 0
+        if current in commit_dates:
+            t_streak += 1
+            current -= timedelta(days=1)
+        elif (current - timedelta(days=1)) in commit_dates:
+            current -= timedelta(days=1)
+            t_streak += 1
+            current -= timedelta(days=1)
+            
+        while current in commit_dates:
+            t_streak += 1
+            current -= timedelta(days=1)
+        temp_streak = t_streak
+
+    activity = []
+    for i in range(13, -1, -1):
+        d = today - timedelta(days=i)
+        activity.append(commit_counts_per_day.get(d, 0))
+        
+    return temp_streak, activity
 
 
 def fetch_stats():
@@ -82,17 +114,14 @@ def fetch_stats():
     total_stars = sum(r.get("stargazers_count", 0) for r in repos)
     total_forks = sum(r.get("forks_count", 0) for r in repos)
 
-    # Longest repo by stars
     featured_repo = max(repos, key=lambda r: r.get("stargazers_count", 0), default=None)
     
-    # Account age
     created_at_str = user.get("created_at")
     account_age_years = 0
     if created_at_str:
         created_at = datetime.strptime(created_at_str, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
         account_age_years = (datetime.now(timezone.utc) - created_at).days // 365
 
-    # Language breakdown by repo count (simple, no extra API calls per repo)
     lang_counts = {}
     for r in repos:
         lang = r.get("language")
@@ -100,7 +129,6 @@ def fetch_stats():
             lang_counts[lang] = lang_counts.get(lang, 0) + 1
     top_langs = sorted(lang_counts.items(), key=lambda x: -x[1])[:5]
 
-    # Total commits (last 12 months)
     one_year_ago = (datetime.now(timezone.utc) - timedelta(days=365)).strftime("%Y-%m-%d")
     commits_url = f"{API}/search/commits?q=author:{USERNAME}+committer-date:>{one_year_ago}"
     total_commits_1y = 0
@@ -109,7 +137,6 @@ def fetch_stats():
     except Exception:
         pass
 
-    # Open-source PRs merged (repos not owned)
     prs_url = f"{API}/search/issues?q=type:pr+is:merged+author:{USERNAME}+-user:{USERNAME}"
     os_prs_merged = 0
     try:
@@ -117,7 +144,7 @@ def fetch_stats():
     except Exception:
         pass
 
-    streak = get_streak()
+    streak, activity = get_streak_and_activity()
 
     return {
         "public_repos": user.get("public_repos", 0),
@@ -132,15 +159,15 @@ def fetch_stats():
         "total_commits_1y": total_commits_1y,
         "os_prs_merged": os_prs_merged,
         "streak": streak,
+        "activity": activity,
     }
 
 
 def render_svg(stats):
     y = 135
     
-    # Render stats block first
     stats_text = f"""
-  <text x="20" y="30" fill="#58a6ff" font-size="16" font-weight="bold" font-family="Segoe UI, sans-serif">{stats['public_repos']} public repos &#183; {stats['followers']} followers</text>
+  <text x="20" y="30" fill="#39d353" font-size="16" font-weight="bold" font-family="Segoe UI, sans-serif">{stats['public_repos']} public repos &#183; {stats['followers']} followers</text>
   <text x="20" y="55" fill="#8b949e" font-size="13" font-family="Segoe UI, sans-serif">&#9733; {stats['total_stars']} stars earned &#183; {stats['total_forks']} forks</text>
   <text x="20" y="75" fill="#8b949e" font-size="13" font-family="Segoe UI, sans-serif">&#128187; {stats['total_commits_1y']} commits (last 12m) &#183; {stats['streak']} day streak</text>
   <text x="20" y="95" fill="#8b949e" font-size="13" font-family="Segoe UI, sans-serif">&#127775; Featured: {stats['featured_repo_name']} ({stats['featured_repo_stars']} stars)</text>
@@ -156,14 +183,43 @@ def render_svg(stats):
         bar_width = int(200 * (count / max_count))
         lang_rows += f"""
         <text x="20" y="{y}" fill="#c9d1d9" font-size="13" font-family="Segoe UI, sans-serif">{lang}</text>
-        <rect x="120" y="{y - 12}" width="{bar_width}" height="10" rx="5" fill="#58a6ff"/>
+        <rect x="120" y="{y - 12}" width="{bar_width}" height="10" rx="5" fill="#26a641"/>
         """
         y += 26
 
-    svg = f"""<svg width="420" height="{y + 20}" xmlns="http://www.w3.org/2000/svg">
+    y += 10
+    activity_html = f'<text x="20" y="{y}" fill="#c9d1d9" font-size="13" font-weight="bold" font-family="Segoe UI, sans-serif">Activity (Last 14 days)</text>'
+    y += 15
+    
+    activity = stats.get("activity", [0]*14)
+    max_act = max(activity) if max(activity) > 0 else 1
+    
+    x_offset = 20
+    for count in activity:
+        height = max(4, int((count / max_act) * 30))
+        y_pos = y + 30 - height
+        
+        if count == 0:
+            color = "#161b22"
+        elif count <= max_act * 0.25:
+            color = "#0e4429"
+        elif count <= max_act * 0.5:
+            color = "#006d32"
+        elif count <= max_act * 0.75:
+            color = "#26a641"
+        else:
+            color = "#39d353"
+            
+        activity_html += f'\n  <rect x="{x_offset}" y="{y_pos}" width="16" height="{height}" rx="3" fill="{color}"/>'
+        x_offset += 20
+        
+    y += 45
+
+    svg = f"""<svg width="420" height="{y}" xmlns="http://www.w3.org/2000/svg">
   <rect width="100%" height="100%" rx="10" fill="#0d1117" stroke="#30363d"/>
   {stats_text}
   {lang_rows}
+  {activity_html}
 </svg>"""
     return svg
 
