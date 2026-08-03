@@ -41,19 +41,10 @@ My other edge is hardware. My capstone is a 25-DOF hexapod robot with wireless c
 ## 📊 GitHub Stats
 
 <p align="center">
-  <img height="165em" src="https://github-readme-stats.vercel.app/api?username=Divyanshu-2907&show_icons=true&theme=dark&hide_border=false&count_private=true" />
-  <img height="165em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Divyanshu-2907&layout=compact&theme=dark&hide_border=false&include_all_commits=true&count_private=false" />
+  <img src="./assets/stats-card.svg" alt="GitHub stats" />
 </p>
 
-<p align="center">
-  <img src="https://nirzak-streak-stats.vercel.app/?user=Divyanshu-2907&theme=dark&hide_border=false" />
-</p>
-
-## 🏆 GitHub Trophies
-
-<p align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=Divyanshu-2907&theme=radical&no-frame=false&no-bg=false&margin-w=4" />
-</p>
+<sub>Self-hosted and auto-updated daily via GitHub Actions — see <code>.github/workflows/update-stats.yml</code></sub>
 
 ---
 
