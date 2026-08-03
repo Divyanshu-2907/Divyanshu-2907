@@ -204,7 +204,7 @@ def render_streak(stats):
         content += f'  <text x="20" y="{y}" fill="{TEXT}" font-size="13" font-family="Segoe UI, sans-serif">&#127775; <tspan fill="{TITLE}">{name}</tspan> <tspan fill="{TEXT}" font-size="11">({lang})</tspan></text>\n'
         y += 22
 
-    return base_svg("Contributions & Projects", content, 185 if y <= 185 else y + 10)
+    return base_svg("Contributions &amp; Projects", content, 185 if y <= 185 else y + 10)
 
 def render_languages(stats):
     content = ""
