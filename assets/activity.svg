@@ -1,8 +1,8 @@
-<svg width="400" height="185" xmlns="http://www.w3.org/2000/svg">
+<svg width="400" height="226" xmlns="http://www.w3.org/2000/svg">
   <rect width="100%" height="100%" rx="10" fill="#0d1117" stroke="#30363d"/>
   <text x="20" y="30" fill="#2ea043" font-size="16" font-weight="bold" font-family="Segoe UI, sans-serif">Recent Activity</text>
   
-  <rect x="20" y="132" width="20" height="8" rx="3" fill="#0e4429"/>
+  <rect x="20" y="134" width="20" height="6" rx="3" fill="#0e4429"/>
   <rect x="46" y="136" width="20" height="4" rx="3" fill="#161b22"/>
   <rect x="72" y="136" width="20" height="4" rx="3" fill="#161b22"/>
   <rect x="98" y="136" width="20" height="4" rx="3" fill="#161b22"/>

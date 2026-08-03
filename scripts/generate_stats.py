@@ -174,7 +174,7 @@ def fetch_stats():
         "activity": activity,
     }
 
-def base_svg(title, content, height):
+def base_svg(title, content, height=226):
     return f"""<svg width="400" height="{height}" xmlns="http://www.w3.org/2000/svg">
   <rect width="100%" height="100%" rx="10" fill="{BG}" stroke="{BORDER}"/>
   <text x="20" y="30" fill="{GREEN}" font-size="16" font-weight="bold" font-family="Segoe UI, sans-serif">{title}</text>
@@ -189,7 +189,7 @@ def render_overview(stats):
   <text x="20" y="135" fill="{TEXT}" font-size="14" font-family="Segoe UI, sans-serif">&#127758; {stats['os_prs_merged']} OS PRs merged</text>
   <text x="20" y="160" fill="{TEXT}" font-size="14" font-family="Segoe UI, sans-serif">&#8986; {stats['account_age_years']} years on GitHub</text>
 """
-    return base_svg("Overview", content, 185)
+    return base_svg("Overview", content)
 
 def render_streak(stats):
     content = f"""
@@ -204,7 +204,7 @@ def render_streak(stats):
         content += f'  <text x="20" y="{y}" fill="{TEXT}" font-size="13" font-family="Segoe UI, sans-serif">&#127775; <tspan fill="{TITLE}">{name}</tspan> <tspan fill="{TEXT}" font-size="11">({lang})</tspan></text>\n'
         y += 22
 
-    return base_svg("Contributions &amp; Projects", content, 185 if y <= 185 else y + 10)
+    return base_svg("Contributions &amp; Projects", content)
 
 def render_languages(stats):
     content = ""
@@ -217,7 +217,7 @@ def render_languages(stats):
   <rect x="130" y="{y - 12}" width="{bar_width}" height="10" rx="5" fill="#2ea043"/>
 """
         y += 28
-    return base_svg("Top Languages", content, y + 10)
+    return base_svg("Top Languages", content)
 
 def render_activity(stats):
     content = ""
@@ -244,7 +244,7 @@ def render_activity(stats):
         x_offset += 26
     
     content += f'\n  <text x="20" y="165" fill="{TEXT}" font-size="12" font-family="Segoe UI, sans-serif">Commit activity over the last 14 days</text>'
-    return base_svg("Recent Activity", content, 185)
+    return base_svg("Recent Activity", content)
 
 if __name__ == "__main__":
     stats = fetch_stats()
