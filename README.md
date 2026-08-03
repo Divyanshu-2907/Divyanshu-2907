@@ -51,10 +51,3 @@ My other edge is hardware. My capstone is a 25-DOF hexapod robot with wireless c
 
 <sub>Self-hosted and auto-updated daily via GitHub Actions — see <code>.github/workflows/update-stats.yml</code></sub>
 
----
-
-<p align="center">
-  <img src="https://visitcount.itsvg.in/api?id=Divyanshu-2907&icon=0&color=0" />
-</p>
-
-<!-- Proudly created with GPRM ( https://gprm.itsvg.in ) -->
