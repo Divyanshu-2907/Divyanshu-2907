@@ -23,7 +23,7 @@ API = "https://api.github.com"
 # Theme Colors
 BG = "#0d1117"
 BORDER = "#30363d"
-GREEN = "#39d353"
+GREEN = "#2ea043"
 TEXT = "#8b949e"
 TITLE = "#c9d1d9"
 
@@ -202,7 +202,7 @@ def render_languages(stats):
         bar_width = int(220 * (count / max_count))
         content += f"""
   <text x="20" y="{y}" fill="{TITLE}" font-size="13" font-family="Segoe UI, sans-serif">{lang}</text>
-  <rect x="130" y="{y - 12}" width="{bar_width}" height="10" rx="5" fill="#26a641"/>
+  <rect x="130" y="{y - 12}" width="{bar_width}" height="10" rx="5" fill="#2ea043"/>
 """
         y += 28
     return base_svg("Top Languages", content, y + 10)
