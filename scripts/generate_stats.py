@@ -121,7 +121,14 @@ def fetch_stats():
     total_stars = sum(r.get("stargazers_count", 0) for r in repos)
     total_forks = sum(r.get("forks_count", 0) for r in repos)
 
-    featured_repo = max(repos, key=lambda r: r.get("stargazers_count", 0), default=None)
+    featured_repos = []
+    for name in ["Hexapod_Robot", "CodeQuest-AI", "Hexmind"]:
+        repo = next((r for r in repos if r.get("name") == name), None)
+        if repo:
+            featured_repos.append(repo)
+    if not featured_repos:
+        top = max(repos, key=lambda r: r.get("stargazers_count", 0), default=None)
+        if top: featured_repos.append(top)
     
     created_at_str = user.get("created_at")
     account_age_years = 0
@@ -159,8 +166,7 @@ def fetch_stats():
         "total_stars": total_stars,
         "total_forks": total_forks,
         "top_langs": top_langs,
-        "featured_repo_name": featured_repo.get("name") if featured_repo else "N/A",
-        "featured_repo_stars": featured_repo.get("stargazers_count") if featured_repo else 0,
+        "featured_repos": featured_repos,
         "account_age_years": account_age_years,
         "total_commits_1y": total_commits_1y,
         "os_prs_merged": os_prs_merged,
@@ -189,10 +195,16 @@ def render_streak(stats):
     content = f"""
   <text x="20" y="60" fill="{TEXT}" font-size="14" font-family="Segoe UI, sans-serif">&#128293; Current Streak: <tspan fill="{TITLE}" font-weight="bold">{stats['streak']} days</tspan></text>
   <text x="20" y="85" fill="{TEXT}" font-size="14" font-family="Segoe UI, sans-serif">&#128221; Total Commits (1yr): <tspan fill="{TITLE}" font-weight="bold">{stats['total_commits_1y']}</tspan></text>
-  <text x="20" y="125" fill="{GREEN}" font-size="13" font-weight="bold" font-family="Segoe UI, sans-serif">Featured Repository</text>
-  <text x="20" y="150" fill="{TEXT}" font-size="14" font-family="Segoe UI, sans-serif">&#127775; {stats['featured_repo_name']} ({stats['featured_repo_stars']} stars)</text>
+  <text x="20" y="125" fill="{GREEN}" font-size="13" font-weight="bold" font-family="Segoe UI, sans-serif">Hardcore Projects</text>
 """
-    return base_svg("Contributions", content, 185)
+    y = 150
+    for repo in stats.get('featured_repos', []):
+        name = repo.get("name", "Unknown")
+        lang = repo.get("language") or "Code"
+        content += f'  <text x="20" y="{y}" fill="{TEXT}" font-size="13" font-family="Segoe UI, sans-serif">&#127775; <tspan fill="{TITLE}">{name}</tspan> <tspan fill="{TEXT}" font-size="11">({lang})</tspan></text>\n'
+        y += 22
+
+    return base_svg("Contributions & Projects", content, 185 if y <= 185 else y + 10)
 
 def render_languages(stats):
     content = ""
