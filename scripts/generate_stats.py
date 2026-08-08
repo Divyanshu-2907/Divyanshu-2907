@@ -192,8 +192,9 @@ def render_overview(stats):
     return base_svg("Overview", content)
 
 def render_streak(stats):
+    streak_label = "day" if stats['streak'] == 1 else "days"
     content = f"""
-  <text x="20" y="60" fill="{TEXT}" font-size="14" font-family="Segoe UI, sans-serif">&#128293; Current Streak: <tspan fill="{TITLE}" font-weight="bold">{stats['streak']} days</tspan></text>
+  <text x="20" y="60" fill="{TEXT}" font-size="14" font-family="Segoe UI, sans-serif">&#128293; Current Streak: <tspan fill="{TITLE}" font-weight="bold">{stats['streak']} {streak_label}</tspan></text>
   <text x="20" y="85" fill="{TEXT}" font-size="14" font-family="Segoe UI, sans-serif">&#128221; Total Commits (1yr): <tspan fill="{TITLE}" font-weight="bold">{stats['total_commits_1y']}</tspan></text>
   <text x="20" y="125" fill="{GREEN}" font-size="13" font-weight="bold" font-family="Segoe UI, sans-serif">Hardcore Projects</text>
 """
