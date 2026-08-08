@@ -5,11 +5,11 @@
   <text x="20" y="60" fill="#c9d1d9" font-size="13" font-family="Segoe UI, sans-serif">Python</text>
   <rect x="130" y="48" width="220" height="10" rx="5" fill="#2ea043"/>
 
-  <text x="20" y="88" fill="#c9d1d9" font-size="13" font-family="Segoe UI, sans-serif">JavaScript</text>
+  <text x="20" y="88" fill="#c9d1d9" font-size="13" font-family="Segoe UI, sans-serif">TypeScript</text>
   <rect x="130" y="76" width="220" height="10" rx="5" fill="#2ea043"/>
 
-  <text x="20" y="116" fill="#c9d1d9" font-size="13" font-family="Segoe UI, sans-serif">TypeScript</text>
-  <rect x="130" y="104" width="188" height="10" rx="5" fill="#2ea043"/>
+  <text x="20" y="116" fill="#c9d1d9" font-size="13" font-family="Segoe UI, sans-serif">JavaScript</text>
+  <rect x="130" y="104" width="220" height="10" rx="5" fill="#2ea043"/>
 
   <text x="20" y="144" fill="#c9d1d9" font-size="13" font-family="Segoe UI, sans-serif">Jupyter Notebook</text>
   <rect x="130" y="132" width="94" height="10" rx="5" fill="#2ea043"/>
