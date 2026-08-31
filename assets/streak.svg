@@ -2,7 +2,7 @@
   <rect width="100%" height="100%" rx="10" fill="#0d1117" stroke="#30363d"/>
   <text x="20" y="30" fill="#2ea043" font-size="16" font-weight="bold" font-family="Segoe UI, sans-serif">Contributions &amp; Projects</text>
   
-  <text x="20" y="60" fill="#8b949e" font-size="14" font-family="Segoe UI, sans-serif">&#128293; Current Streak: <tspan fill="#c9d1d9" font-weight="bold">1 day</tspan></text>
+  <text x="20" y="60" fill="#8b949e" font-size="14" font-family="Segoe UI, sans-serif">&#128293; Current Streak: <tspan fill="#c9d1d9" font-weight="bold">0 days</tspan></text>
   <text x="20" y="85" fill="#8b949e" font-size="14" font-family="Segoe UI, sans-serif">&#128221; Total Commits (1yr): <tspan fill="#c9d1d9" font-weight="bold">131</tspan></text>
   <text x="20" y="125" fill="#2ea043" font-size="13" font-weight="bold" font-family="Segoe UI, sans-serif">Hardcore Projects</text>
   <text x="20" y="150" fill="#8b949e" font-size="13" font-family="Segoe UI, sans-serif">&#127775; <tspan fill="#c9d1d9">Hexapod_Robot</tspan> <tspan fill="#8b949e" font-size="11">(C++)</tspan></text>
