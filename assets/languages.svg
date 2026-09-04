@@ -11,10 +11,10 @@
   <text x="20" y="116" fill="#c9d1d9" font-size="13" font-family="Segoe UI, sans-serif">TypeScript</text>
   <rect x="130" y="104" width="192" height="10" rx="5" fill="#2ea043"/>
 
-  <text x="20" y="144" fill="#c9d1d9" font-size="13" font-family="Segoe UI, sans-serif">Jupyter Notebook</text>
-  <rect x="130" y="132" width="82" height="10" rx="5" fill="#2ea043"/>
+  <text x="20" y="144" fill="#c9d1d9" font-size="13" font-family="Segoe UI, sans-serif">HTML</text>
+  <rect x="130" y="132" width="110" height="10" rx="5" fill="#2ea043"/>
 
-  <text x="20" y="172" fill="#c9d1d9" font-size="13" font-family="Segoe UI, sans-serif">CSS</text>
+  <text x="20" y="172" fill="#c9d1d9" font-size="13" font-family="Segoe UI, sans-serif">Jupyter Notebook</text>
   <rect x="130" y="160" width="82" height="10" rx="5" fill="#2ea043"/>
 
 </svg>
