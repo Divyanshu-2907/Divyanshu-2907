@@ -1,6 +1,6 @@
 # Hi, I'm Divyanshu
 
-Software engineer who likes hard bugs. I build AI agents and full-stack products, and I spend a lot of time on the question of how you check whether an AI coding agent actually reasoned through a problem or just pattern-matched its way to something that looks right.
+Software engineer who likes hard bugs. I build AI agents and full-stack products, lately in Ruby on Rails, and I spend a lot of time on the question of how you check whether an AI coding agent actually reasoned through a problem or just pattern-matched its way to something that looks right.
 
 Right now I'm an Analyst at Turing, evaluating LLM responses. Before that I was an AI Fellow at Handshake AI, designing evaluation tasks for AI coding agents.
 
@@ -13,6 +13,8 @@ I also come from hardware (B.Tech in ECE, 2026). My capstone, **HexMind**, is a 
 
 600+ LeetCode problems solved, mostly in Java.
 
+Open source: merged PRs to EmbeddedOS, contributor in OSCI'26.
+
 Currently open to remote software and AI engineering roles.
 
 ---
@@ -21,6 +23,8 @@ Currently open to remote software and AI engineering roles.
 
 | Project | What it is | Stack |
 |---|---|---|
+| [SerpGuard](https://github.com/Divyanshu-2907/SerpGuard) | Fact-checks AI-generated text and code against live Google results. 25-claim accuracy benchmark, a GitHub Action for PRs, 287 offline specs. Listed in SerpApi's [#BuiltWithSerpApi showcase](https://serpapi.github.io/BuiltWithSerpApi/projects/serpguard/) | Ruby on Rails 8, MongoDB, SerpApi, Claude API |
+| [MiniSERP](https://github.com/Divyanshu-2907/MiniSERP) | Search-results scraping API with layered Nokogiri selectors and structural fallbacks, CAPTCHA/block detection, caching and rate limiting | Ruby on Rails 8, MongoDB, Nokogiri |
 | [HexMind](https://github.com/Divyanshu-2907/Hexmind) | Agentic firmware co-pilot for a 25-DOF hexapod robot. Best Paper, NCETST-2026 | C/C++, Python, YOLOv8, MCP, Claude API |
 | [AgentGuard](https://github.com/Divyanshu-2907/AgentGuard) | 11-stage check pipeline that a coding agent's patch has to pass before it runs: sandboxed tests, static analysis, secrets scan, LLM intent match, policy veto | Docker, Node.js, LLM judge |
 | [FreeAstrologyAI.com](https://freeastrologyai.com) | Production web app I built and shipped solo in about 3 weeks. 10K+ monthly pageviews | Astro, Cloudflare Workers, Supabase, Gemini |
@@ -33,6 +37,7 @@ Currently open to remote software and AI engineering roles.
 
 ## Tech stack
 
+![Ruby](https://img.shields.io/badge/ruby-%23CC342D.svg?style=for-the-badge&logo=ruby&logoColor=white)
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
@@ -41,6 +46,7 @@ Currently open to remote software and AI engineering roles.
 ![C](https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white)
 ![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white)
 
+![Rails](https://img.shields.io/badge/rails-%23CC0000.svg?style=for-the-badge&logo=ruby-on-rails&logoColor=white)
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![Next.js](https://img.shields.io/badge/Next.js-black?style=for-the-badge&logo=next.js&logoColor=white)
 ![Node.js](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
