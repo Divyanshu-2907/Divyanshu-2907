@@ -9,7 +9,7 @@
   <rect x="130" y="76" width="201" height="10" rx="5" fill="#2ea043"/>
 
   <text x="20" y="116" fill="#c9d1d9" font-size="13" font-family="Segoe UI, sans-serif">JavaScript</text>
-  <rect x="130" y="104" width="165" height="10" rx="5" fill="#2ea043"/>
+  <rect x="130" y="104" width="183" height="10" rx="5" fill="#2ea043"/>
 
   <text x="20" y="144" fill="#c9d1d9" font-size="13" font-family="Segoe UI, sans-serif">HTML</text>
   <rect x="130" y="132" width="73" height="10" rx="5" fill="#2ea043"/>
